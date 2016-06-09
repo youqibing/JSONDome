@@ -40,7 +40,7 @@ public class JSONHelper {
 
                     data = new JSONData();
                     data.setUrl(imageObject.getString("image_url"));           //提取目标信息
-                    data.setComment(imageObject.getString("iamge_comment"));
+                    data.setComment(imageObject.getString("image_comment"));
 
                     datas.add(data);                                          //添加入List
                 }
@@ -55,7 +55,7 @@ public class JSONHelper {
 
     private String getJsonString(InputStream inputStream) throws Exception{
 
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"UTF-8"));
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"GB2312"));
         StringBuilder stringBuider= new StringBuilder();
         String ReaderLine = "";
 

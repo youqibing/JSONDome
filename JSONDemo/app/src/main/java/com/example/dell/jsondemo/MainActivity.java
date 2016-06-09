@@ -56,7 +56,7 @@ public class MainActivity extends Activity {
 
            // analyDatabtn.setOnClickListener(new View.OnClickListener() {
 
-                FileInputStream inputStream = new FileInputStream(file+"/json.json");
+                FileInputStream inputStream = new FileInputStream(file+"/json.txt");
                 JSONHelper jsonHelper = new JSONHelper(inputStream);
                 List<JSONData> datas = jsonHelper.getData();
                 List<Map<String,String>> list = new ArrayList<Map<String,String>>();
@@ -71,7 +71,7 @@ public class MainActivity extends Activity {
                         map.put("image_url",json.getUrl());
                         map.put("image_comment",json.getComment());
 
-                        Toast.makeText(MainActivity.this,json.getUrl(),Toast.LENGTH_SHORT).show();
+                    //    Toast.makeText(MainActivity.this,json.getUrl(),Toast.LENGTH_SHORT).show();
                         list.add(map);
                     }
 
