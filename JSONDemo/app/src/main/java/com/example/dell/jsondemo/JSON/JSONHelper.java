@@ -1,4 +1,6 @@
-package com.example.dell.jsondemo;
+package com.example.dell.jsondemo.JSON;
+
+import com.example.dell.jsondemo.JSON.JSONData;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -11,6 +13,7 @@ import java.util.List;
 
 /**
  * Created by dell on 2016/6/7.
+ * 辅助类，用于扒出我们想要得到的信息。
  */
 
 public class JSONHelper {

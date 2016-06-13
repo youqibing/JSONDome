@@ -1,4 +1,4 @@
-package com.example.dell.jsondemo;
+package com.example.dell.jsondemo.JSON;
 
 /**
  * Created by dell on 2016/6/7.
