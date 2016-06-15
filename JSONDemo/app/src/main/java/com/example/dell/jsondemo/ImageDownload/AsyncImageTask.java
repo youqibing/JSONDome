@@ -7,6 +7,7 @@ import android.os.Environment;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -18,27 +19,33 @@ import java.net.URL;
 import java.util.Calendar;
 import java.util.Locale;
 
+import static com.example.dell.jsondemo.R.id.imageUrl;
+
 /**
  * Created by dell on 2016/6/12.
  * 利用AsyncTask线程池管理卸载任务,注意不要往文件夹里边存图片，直接在输入流里边截取图片显示就可以了，（这部分已经注释掉了）
  * 如果要往文家夹里边写图片的话，因为我们用系统时间命名，每张图片的名字都不一样，系统就会认为这是不同的图片，导致文件夹里边
- * 的图片越来越多，手机会炸掉了，这个暂时没有找到可行的解决方法。
+ * 的图片越来越多，手机会炸掉的，这个暂时没有找到可行的解决方法。
  */
 
 public class AsyncImageTask extends AsyncTask<String,Integer,Bitmap> {
 
     private ImageView imageView;
+    private ListView listView;
+
+    String imageUrl;
     //private static final String savePath = Environment.getExternalStorageDirectory()+"/JSONDome";
     //private String saveFileName =System.currentTimeMillis()+".jpg";
 
-    public AsyncImageTask(ImageView imageView){
-        this.imageView=imageView;
+    public AsyncImageTask(ListView listView){
+
+        this.listView =listView;
     }
 
     //后台运行子线程
     @Override
     protected Bitmap doInBackground(String... params) {
-        String imageUrl = params[0];
+        imageUrl = params[0];
         //Log.e("test",imageUrl);
 
         URL url =null;
@@ -64,7 +71,6 @@ public class AsyncImageTask extends AsyncTask<String,Integer,Bitmap> {
             inputStream = conn.getInputStream();
             //fileOutputStream = new FileOutputStream(file);
             bitmap = BitmapFactory.decodeStream(inputStream);
-
 
             //byte[] buffer = new byte[1024];
             //int length = -1;
@@ -107,7 +113,8 @@ public class AsyncImageTask extends AsyncTask<String,Integer,Bitmap> {
         super.onPostExecute(bitmap);
         Log.e("test",bitmap+"");
 
-        if(bitmap!=null){
+        imageView =(ImageView)listView.findViewWithTag(imageUrl);
+        if(bitmap!=null&&imageView!=null){
             imageView.setImageBitmap(bitmap);
             //Log.e("test",bitmap+"");
         }
