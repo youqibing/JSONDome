@@ -9,23 +9,20 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.example.dell.jsondemo.Cache.MemoryCache;
+import com.example.dell.jsondemo.Cache.SDcardCache;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Calendar;
-import java.util.Locale;
 
-import static com.example.dell.jsondemo.R.id.imageUrl;
 
 /**
  * Created by dell on 2016/6/12.
- * 利用AsyncTask线程池管理卸载任务,注意不要往文件夹里边存图片，直接在输入流里边截取图片显示就可以了，（这部分已经注释掉了）
- * 如果要往文家夹里边写图片的话，因为我们用系统时间命名，每张图片的名字都不一样，系统就会认为这是不同的图片，导致文件夹里边
- * 的图片越来越多，手机会炸掉的，这个暂时没有找到可行的解决方法。
+ * 利用AsyncTask线程池管理下载任务
  */
 
 public class AsyncImageTask extends AsyncTask<String,Integer,Bitmap> {
@@ -33,13 +30,18 @@ public class AsyncImageTask extends AsyncTask<String,Integer,Bitmap> {
     private ImageView imageView;
     private ListView listView;
 
+    private MemoryCache memoryCache;
+    private SDcardCache sDcardCache;
+
     String imageUrl;
     //private static final String savePath = Environment.getExternalStorageDirectory()+"/JSONDome";
     //private String saveFileName =System.currentTimeMillis()+".jpg";
+    public AsyncImageTask(ListView listView,MemoryCache memoryCache,SDcardCache sDcardCache){
 
-    public AsyncImageTask(ListView listView){
-
+        this.memoryCache = memoryCache;
+        this.sDcardCache = sDcardCache;
         this.listView =listView;
+
     }
 
     //后台运行子线程
@@ -116,7 +118,10 @@ public class AsyncImageTask extends AsyncTask<String,Integer,Bitmap> {
         imageView =(ImageView)listView.findViewWithTag(imageUrl);
         if(bitmap!=null&&imageView!=null){
             imageView.setImageBitmap(bitmap);
-            //Log.e("test",bitmap+"");
+            //网络下好图片之后先写入SD卡
+            sDcardCache.writeToSDCard(imageUrl,bitmap);
+            //然后再写入内存
+            memoryCache.writeToMemory(imageUrl,bitmap);
         }
     }
 }

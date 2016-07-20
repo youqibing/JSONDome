@@ -28,9 +28,6 @@ public class MainActivity extends Activity {
 
     private File file;
 
-    public MainActivity() {
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

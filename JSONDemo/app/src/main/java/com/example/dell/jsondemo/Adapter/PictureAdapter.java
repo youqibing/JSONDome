@@ -78,7 +78,7 @@ public class PictureAdapter extends BaseAdapter{
 
         //设置ListView的相关值
         imageUrlTx.setText(imageData.get("image_comment"));
-        imageLoader.displayImage(imageData.get("image_url"),listView);    //给ImageView加载相应的图片
+        imageLoader.displayImage(imageData.get("image_url"),listView,imageShow);    //给ImageView加载相应的图片
 
         imageShow.setTag(imageData.get("image_url"));
 

@@ -2,6 +2,7 @@ package com.example.dell.jsondemo;
 
 import org.junit.Test;
 
+import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.*;
 
 /**
